@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="42c7e5cd222a4387b8133a651db21955" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="VKApiModel.GroupActionLimit" Width="1.75" PointX="13.875" PointY="6.75" IsExpanded="true" FillColor="Maroon" />
+        <EntityTypeShape EntityType="VKApiModel.GroupActions" Width="1.75" PointX="13.875" PointY="4.125" IsExpanded="true" FillColor="Maroon" />
+        <EntityTypeShape EntityType="VKApiModel.GroupActionType" Width="1.625" PointX="11.125" PointY="5.875" IsExpanded="true" FillColor="Maroon" />
+        <EntityTypeShape EntityType="VKApiModel.Group" Width="1.75" PointX="13.875" PointY="1.625" IsExpanded="true" FillColor="Maroon" />
+        <EntityTypeShape EntityType="VKApiModel.Post" Width="1.5" PointX="16.5" PointY="4.375" IsExpanded="true" FillColor="Maroon" />
+        <EntityTypeShape EntityType="VKApiModel.UserActionLimit" Width="1.75" PointX="5.125" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="VKApiModel.UserAction" Width="1.75" PointX="5.125" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VKApiModel.UserActionType" Width="1.625" PointX="2.625" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VKApiModel.User" Width="1.75" PointX="5.125" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="VKApiModel.FK_GroupActionLimitsGroupActionTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="VKApiModel.FK_GroupsGroup_actions" ManuallyRouted="false" />
+        <AssociationConnector Association="VKApiModel.FK_PostsGroup_actions" ManuallyRouted="false" />
+        <AssociationConnector Association="VKApiModel.FK_UserActionTypesUserActionLimits" ManuallyRouted="false" />
+        <AssociationConnector Association="VKApiModel.FK_UserActionsUserActionTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="VKApiModel.FK_UsersUser_actions" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VKApiModel.Profile" Width="1.625" PointX="8" PointY="6.125" />
+        <AssociationConnector Association="VKApiModel.FK_UserActionLimits_Profiles1" />
+        <AssociationConnector Association="VKApiModel.FK_UserActions_Profiles1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

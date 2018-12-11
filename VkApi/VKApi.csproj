@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D416913C-7409-499D-A90D-09E836F9026C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>VkApi</RootNamespace>
+    <AssemblyName>VkApi</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>VkApi.Forms.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>VK.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.8.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.1.0.0, Culture=neutral, PublicKeyToken=8df3f1eee85cc956, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetFx.Extensions.DependencyInjection.2.1.1\lib\net40\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=8df3f1eee85cc956, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetFx.Extensions.DependencyInjection.Abstractions.2.1.1\lib\net40\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=8df3f1eee85cc956, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetFx.Extensions.Logging.Abstractions.2.1.1\lib\net40\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telegram.Bot, Version=14.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telegram.Bot.14.10.0\lib\net45\Telegram.Bot.dll</HintPath>
+    </Reference>
+    <Reference Include="VkNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VkNet.1.40.0\lib\net45\VkNet.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntityModel\Group.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\GroupActionLimit.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\GroupActionType.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Post.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\User.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\UserAction.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\UserActionLimit.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\UserActionType.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\VKApiModel.Context1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VKApiModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\VKApiModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\BaseAction.cs" />
+    <Compile Include="Forms\AddProfileWpf.xaml.cs">
+      <DependentUpon>AddProfileWpf.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\UserAction\UserActionAdd.cs" />
+    <Compile Include="Logic\UserAction\UserActionLike.cs" />
+    <Compile Include="Logic\UserAction\UserActionWrite.cs" />
+    <Compile Include="Utility\ObservableDictionary.cs" />
+    <Compile Include="Logic\WorkingPeriod.cs" />
+    <Compile Include="Utility\AntiCaptcha.cs" />
+    <Compile Include="Forms\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\GroupActionLogic.cs" />
+    <Compile Include="EntityModel\GroupActions.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainFormWpf.xaml.cs">
+      <DependentUpon>MainFormWpf.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\MainLogic.cs" />
+    <Compile Include="EntityModel\Profile.cs">
+      <DependentUpon>VKApiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\ProfileExtension.cs" />
+    <Compile Include="Logic\UserAction\BaseUserAction.cs" />
+    <Compile Include="EntityModel\UserExtension.cs" />
+    <Compile Include="Utility\Extentions.cs" />
+    <Compile Include="Utility\Logger.cs" />
+    <Compile Include="EntityModel\VKApiModel.Context.cs" />
+    <Compile Include="EntityModel\VKApiModel.cs" />
+    <Compile Include="EntityModel\VKApiModel.Designer.cs">
+      <DependentUpon>VKApiModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\VKApiModel1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VKApiModel.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="EntityModel\VKApiModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>VKApiModel1.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>VkApi</CustomToolNamespace>
+    </EntityDeploy>
+    <None Include="EntityModel\VKApiModel.edmx.diagram">
+      <DependentUpon>VKApiModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="VK.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="EntityModel\VKApiModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VKApiModel.Context1.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityModel\VKApiModel.edmx.sql" />
+    <Content Include="EntityModel\VKApiModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VKApiModel1.cs</LastGenOutput>
+      <CustomToolNamespace>VkApi</CustomToolNamespace>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Forms\AddProfileWpf.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\MainFormWpf.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

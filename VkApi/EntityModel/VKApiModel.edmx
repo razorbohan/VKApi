@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VKApiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GroupActionLimits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionTypeId" Type="int" Nullable="false" />
+          <Property Name="LimitDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupActions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="UpdateDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupActionTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionType" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="bigint" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Post" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProfileName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="AppId" Type="bigint" Nullable="false" />
+          <Property Name="TelegramToken" Type="nvarchar" MaxLength="255" />
+          <Property Name="TelegramChatId" Type="bigint" />
+          <Property Name="AntiCaptchaApiKey" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UserActionLimits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionTypeId" Type="int" Nullable="false" />
+          <Property Name="LimitDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ProfileId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ActionTypeId" Type="int" Nullable="false" />
+          <Property Name="UpdateDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ProfileId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActionTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ActionType" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Url" Type="bigint" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Friends" Type="int" Nullable="false" />
+          <Property Name="Followers" Type="int" Nullable="false" />
+          <Property Name="Common" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_GroupActionLimitsGroupActionTypes">
+          <End Role="GroupActionTypes" Type="Self.GroupActionTypes" Multiplicity="1" />
+          <End Role="GroupActionLimits" Type="Self.GroupActionLimits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupActionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupActionLimits">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupsGroup_actions">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="GroupActions" Type="Self.GroupActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupActions">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostsGroup_actions">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="GroupActions" Type="Self.GroupActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupActions">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActionLimits_Profiles1">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
+          <End Role="UserActionLimits" Type="Self.UserActionLimits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActionLimits">
+              <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActions_Profiles1">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="1" />
+          <End Role="UserActions" Type="Self.UserActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActions">
+              <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActionsUserActionTypes">
+          <End Role="UserActionTypes" Type="Self.UserActionTypes" Multiplicity="1" />
+          <End Role="UserActions" Type="Self.UserActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserActionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActions">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActionTypesUserActionLimits">
+          <End Role="UserActionTypes" Type="Self.UserActionTypes" Multiplicity="1" />
+          <End Role="UserActionLimits" Type="Self.UserActionLimits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserActionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActionLimits">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersUser_actions">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserActions" Type="Self.UserActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VKApiModelStoreContainer">
+          <EntitySet Name="GroupActionLimits" EntityType="Self.GroupActionLimits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupActions" EntityType="Self.GroupActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupActionTypes" EntityType="Self.GroupActionTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActionLimits" EntityType="Self.UserActionLimits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActions" EntityType="Self.UserActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActionTypes" EntityType="Self.UserActionTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GroupActionLimitsGroupActionTypes" Association="Self.FK_GroupActionLimitsGroupActionTypes">
+            <End Role="GroupActionTypes" EntitySet="GroupActionTypes" />
+            <End Role="GroupActionLimits" EntitySet="GroupActionLimits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupsGroup_actions" Association="Self.FK_GroupsGroup_actions">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupActions" EntitySet="GroupActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostsGroup_actions" Association="Self.FK_PostsGroup_actions">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="GroupActions" EntitySet="GroupActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActionLimits_Profiles1" Association="Self.FK_UserActionLimits_Profiles1">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="UserActionLimits" EntitySet="UserActionLimits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActions_Profiles1" Association="Self.FK_UserActions_Profiles1">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="UserActions" EntitySet="UserActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActionsUserActionTypes" Association="Self.FK_UserActionsUserActionTypes">
+            <End Role="UserActionTypes" EntitySet="UserActionTypes" />
+            <End Role="UserActions" EntitySet="UserActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActionTypesUserActionLimits" Association="Self.FK_UserActionTypesUserActionLimits">
+            <End Role="UserActionTypes" EntitySet="UserActionTypes" />
+            <End Role="UserActionLimits" EntitySet="UserActionLimits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersUser_actions" Association="Self.FK_UsersUser_actions">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActions" EntitySet="UserActions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VKApiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GroupActionLimit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="LimitDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="GroupActionTypes" Relationship="Self.FK_GroupActionLimitsGroupActionTypes" FromRole="GroupActionLimits" ToRole="GroupActionTypes" />
+        </EntityType>
+        <EntityType Name="GroupActions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="PostId" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_GroupsGroup_actions" FromRole="GroupActions" ToRole="Groups" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_PostsGroup_actions" FromRole="GroupActions" ToRole="Posts" />
+        </EntityType>
+        <EntityType Name="GroupActionType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="GroupActionLimits" Relationship="Self.FK_GroupActionLimitsGroupActionTypes" FromRole="GroupActionTypes" ToRole="GroupActionLimits" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="Int64" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GroupActions" Relationship="Self.FK_GroupsGroup_actions" FromRole="Groups" ToRole="GroupActions" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GroupActions" Relationship="Self.FK_PostsGroup_actions" FromRole="Posts" ToRole="GroupActions" />
+        </EntityType>
+        <EntityType Name="UserActionLimit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="LimitDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserActionTypes" Relationship="Self.FK_UserActionTypesUserActionLimits" FromRole="UserActionLimits" ToRole="UserActionTypes" />
+          <Property Name="ProfileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Profile" Relationship="VKApiModel.FK_UserActionLimits_Profiles1" FromRole="UserActionLimits" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="UserAction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserActionTypes" Relationship="Self.FK_UserActionsUserActionTypes" FromRole="UserActions" ToRole="UserActionTypes" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UsersUser_actions" FromRole="UserActions" ToRole="Users" />
+          <Property Name="ProfileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Profile" Relationship="VKApiModel.FK_UserActions_Profiles1" FromRole="UserActions" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="UserActionType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="ActionType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserActionLimits" Relationship="Self.FK_UserActionTypesUserActionLimits" FromRole="UserActionTypes" ToRole="UserActionLimits" />
+          <NavigationProperty Name="UserActions" Relationship="Self.FK_UserActionsUserActionTypes" FromRole="UserActionTypes" ToRole="UserActions" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Url" Type="Int64" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Friends" Type="Int32" Nullable="false" />
+          <Property Name="Followers" Type="Int32" Nullable="false" />
+          <Property Name="Common" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserActions" Relationship="Self.FK_UsersUser_actions" FromRole="Users" ToRole="UserActions" />
+        </EntityType>
+        <Association Name="FK_GroupActionLimitsGroupActionTypes">
+          <End Role="GroupActionTypes" Type="VKApiModel.GroupActionType" Multiplicity="1" />
+          <End Role="GroupActionLimits" Type="VKApiModel.GroupActionLimit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupActionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupActionLimits">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupsGroup_actions">
+          <End Role="Groups" Type="VKApiModel.Group" Multiplicity="1" />
+          <End Role="GroupActions" Type="Self.GroupActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupActions">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostsGroup_actions">
+          <End Role="Posts" Type="VKApiModel.Post" Multiplicity="1" />
+          <End Role="GroupActions" Type="Self.GroupActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupActions">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActionTypesUserActionLimits">
+          <End Role="UserActionTypes" Type="VKApiModel.UserActionType" Multiplicity="1" />
+          <End Role="UserActionLimits" Type="VKApiModel.UserActionLimit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserActionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActionLimits">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActionsUserActionTypes">
+          <End Role="UserActionTypes" Type="VKApiModel.UserActionType" Multiplicity="1" />
+          <End Role="UserActions" Type="VKApiModel.UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserActionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActions">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersUser_actions">
+          <End Role="Users" Type="VKApiModel.User" Multiplicity="1" />
+          <End Role="UserActions" Type="VKApiModel.UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VKApiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GroupActionLimits" EntityType="VKApiModel.GroupActionLimit" />
+          <EntitySet Name="GroupActions" EntityType="Self.GroupActions" />
+          <EntitySet Name="GroupActionTypes" EntityType="VKApiModel.GroupActionType" />
+          <EntitySet Name="Groups" EntityType="VKApiModel.Group" />
+          <EntitySet Name="Posts" EntityType="VKApiModel.Post" />
+          <EntitySet Name="UserActionLimits" EntityType="VKApiModel.UserActionLimit" />
+          <EntitySet Name="UserActions" EntityType="VKApiModel.UserAction" />
+          <EntitySet Name="UserActionTypes" EntityType="VKApiModel.UserActionType" />
+          <EntitySet Name="Users" EntityType="VKApiModel.User" />
+          <AssociationSet Name="FK_GroupActionLimitsGroupActionTypes" Association="Self.FK_GroupActionLimitsGroupActionTypes">
+            <End Role="GroupActionTypes" EntitySet="GroupActionTypes" />
+            <End Role="GroupActionLimits" EntitySet="GroupActionLimits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupsGroup_actions" Association="Self.FK_GroupsGroup_actions">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupActions" EntitySet="GroupActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostsGroup_actions" Association="Self.FK_PostsGroup_actions">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="GroupActions" EntitySet="GroupActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActionTypesUserActionLimits" Association="Self.FK_UserActionTypesUserActionLimits">
+            <End Role="UserActionTypes" EntitySet="UserActionTypes" />
+            <End Role="UserActionLimits" EntitySet="UserActionLimits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActionsUserActionTypes" Association="Self.FK_UserActionsUserActionTypes">
+            <End Role="UserActionTypes" EntitySet="UserActionTypes" />
+            <End Role="UserActions" EntitySet="UserActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersUser_actions" Association="Self.FK_UsersUser_actions">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserActions" EntitySet="UserActions" />
+          </AssociationSet>
+          <EntitySet Name="Profile" EntityType="VKApiModel.Profile" />
+          <AssociationSet Name="FK_UserActionLimits_Profiles1" Association="VKApiModel.FK_UserActionLimits_Profiles1">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="UserActionLimits" EntitySet="UserActionLimits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserActions_Profiles1" Association="VKApiModel.FK_UserActions_Profiles1">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="UserActions" EntitySet="UserActions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfileName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserActionLimits" Relationship="VKApiModel.FK_UserActionLimits_Profiles1" FromRole="Profile" ToRole="UserActionLimits" />
+          <NavigationProperty Name="UserActions" Relationship="VKApiModel.FK_UserActions_Profiles1" FromRole="Profile" ToRole="UserActions" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AppId" Type="Int64" Nullable="false" />
+          <Property Name="TelegramToken" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TelegramChatId" Type="Int64" />
+          <Property Name="AntiCaptchaApiKey" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_UserActionLimits_Profiles1">
+          <End Type="VKApiModel.Profile" Role="Profile" Multiplicity="1" />
+          <End Type="VKApiModel.UserActionLimit" Role="UserActionLimits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActionLimits">
+              <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserActions_Profiles1">
+          <End Type="VKApiModel.Profile" Role="Profile" Multiplicity="1" />
+          <End Type="VKApiModel.UserAction" Role="UserActions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserActions">
+              <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VKApiModelStoreContainer" CdmEntityContainer="VKApiEntities">
+          <EntitySetMapping Name="GroupActionLimits">
+            <EntityTypeMapping TypeName="VKApiModel.GroupActionLimit">
+              <MappingFragment StoreEntitySet="GroupActionLimits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="LimitDateTime" ColumnName="LimitDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupActions">
+            <EntityTypeMapping TypeName="VKApiModel.GroupActions">
+              <MappingFragment StoreEntitySet="GroupActions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupActionTypes">
+            <EntityTypeMapping TypeName="VKApiModel.GroupActionType">
+              <MappingFragment StoreEntitySet="GroupActionTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="VKApiModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="VKApiModel.Post">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Post" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActionLimits">
+            <EntityTypeMapping TypeName="VKApiModel.UserActionLimit">
+              <MappingFragment StoreEntitySet="UserActionLimits">
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="LimitDateTime" ColumnName="LimitDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActions">
+            <EntityTypeMapping TypeName="VKApiModel.UserAction">
+              <MappingFragment StoreEntitySet="UserActions">
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActionTypes">
+            <EntityTypeMapping TypeName="VKApiModel.UserActionType">
+              <MappingFragment StoreEntitySet="UserActionTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="VKApiModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Friends" ColumnName="Friends" />
+                <ScalarProperty Name="Followers" ColumnName="Followers" />
+                <ScalarProperty Name="Common" ColumnName="Common" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile">
+            <EntityTypeMapping TypeName="VKApiModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="AntiCaptchaApiKey" ColumnName="AntiCaptchaApiKey" />
+                <ScalarProperty Name="TelegramChatId" ColumnName="TelegramChatId" />
+                <ScalarProperty Name="TelegramToken" ColumnName="TelegramToken" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

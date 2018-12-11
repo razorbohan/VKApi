@@ -1,0 +1,14 @@
+.vs
+*.user
+VkApi/bin/
+VkApi/obj/
+VkNet/.github
+VkNet/.vs
+VkNet/Build
+VkNet/examples
+VkNet/nuget
+VkNet/tools
+VkNet/VkNet.Tests
+VkNet/VkNet.sln
+VkNet/.gitignore
+VkNet/VkNet/obj
